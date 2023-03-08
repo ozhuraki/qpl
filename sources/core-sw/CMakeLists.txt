@@ -22,39 +22,6 @@ file(GLOB SOURCES
 file(GLOB DATA_SOURCES
      src/data/*.c)
 
-# Create library
-add_library(qplcore_avx512 OBJECT ${SOURCES})
-
-target_compile_definitions(qplcore_avx512 PRIVATE PLATFORM=2)
-
-target_include_directories(qplcore_avx512
-                           PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-                           PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/include>
-                           PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/compression/include>
-                           PRIVATE $<TARGET_PROPERTY:isal,INTERFACE_INCLUDE_DIRECTORIES>)
-
-set_target_properties(qplcore_avx512 PROPERTIES
-        $<$<C_COMPILER_ID:MSVC>:C_STANDARD 18>
-        $<$<C_COMPILER_ID:GNU>:C_STANDARD 17>)
-
-target_link_libraries(qplcore_avx512 isal)
-
-if (WIN32)
-    target_compile_options(qplcore_avx512
-                           PRIVATE ${QPL_WINDOWS_TOOLCHAIN_REQUIRED_FLAGS}
-                           PRIVATE /arch:AVX512
-                           PRIVATE "$<$<CONFIG:Debug>:>"
-                           PRIVATE "$<$<CONFIG:Release>:-O2>")
-else ()
-    target_compile_options(qplcore_avx512
-                           PRIVATE ${QPL_LINUX_TOOLCHAIN_REQUIRED_FLAGS}
-                           PRIVATE -march=skylake-avx512
-                           PRIVATE "$<$<CONFIG:Debug>:>"
-                           PRIVATE "$<$<CONFIG:Release>:-O3;-D_FORTIFY_SOURCE=2>")
-endif ()
-
-target_compile_definitions(qplcore_avx512 PUBLIC QPL_BADARG_CHECK)
-
 #
 # Create px library
 #
