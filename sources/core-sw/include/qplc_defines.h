@@ -28,13 +28,13 @@ extern "C" {
 #define L9 1
 #define PX 0
 
-#if PLATFORM >= K0
-#define ARCH avx512_
-#elif PLATFORM == L9
-#define ARCH avx2_
-#else
+/* #if PLATFORM >= K0 */
+/* #define ARCH avx512_ */
+/* #elif PLATFORM == L9 */
+/* #define ARCH avx2_ */
+/* #else */
 #define ARCH px_
-#endif
+/* #endif */
 
 #define CORE_FUN_NAME_HELPER(a, b) a##b
 #define CORE_FUN_NAME(a, b) CORE_FUN_NAME_HELPER(a, b)
