@@ -7,12 +7,9 @@
 project(core_iaa C CXX)
 
 # Find Kernels Sources
-file(GLOB HW_PATH_SRC sources/aecs/*.c
-                      sources/aecs/*.cpp
+file(GLOB HW_PATH_SRC
                       sources/driver_loader/*.c
                       sources/driver_loader/*.cpp
-                      sources/descriptors/*.c
-                      sources/descriptors/*.cpp
                       sources/bit_rev.c)
 
 option(BLOCK_ON_FAULT "Use `Block on Fault` flag for descriptor" ON)
@@ -25,7 +22,7 @@ target_include_directories(core_iaa
         PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/sources/include>
         PRIVATE $<BUILD_INTERFACE:${QPL_PROJECT_DIR}/include>  # status.h in own_checkers.h
         PRIVATE $<BUILD_INTERFACE:${QPL_PROJECT_DIR}/sources/c_api> # own_checkers.h
-        PRIVATE $<TARGET_PROPERTY:qplcore_avx512,INTERFACE_INCLUDE_DIRECTORIES>)
+      )
 
 set_target_properties(core_iaa PROPERTIES
         $<$<C_COMPILER_ID:MSVC>:C_STANDARD 18>

@@ -20,7 +20,6 @@ file(GLOB MIDDLE_LAYER_SRC
         compression/*.cpp
         compression/*/*.cpp
         compression/*/*/*.cpp
-        dispatcher/*.cpp
         other/*.cpp
         util/*.cpp
         inflate/*.cpp
@@ -31,7 +30,6 @@ file(GLOB GENERATED_AVX512_TABLES_SRC ${CMAKE_CURRENT_BINARY_DIR}/generated/avx5
 
 add_library(middle_layer_lib OBJECT
         ${GENERATED_PX_TABLES_SRC}
-        ${GENERATED_AVX512_TABLES_SRC}
         ${MIDDLE_LAYER_SRC})
 
 if (WIN32)
@@ -66,8 +64,6 @@ target_include_directories(middle_layer_lib
         PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         PUBLIC $<TARGET_PROPERTY:qpl,INTERFACE_INCLUDE_DIRECTORIES>
         PUBLIC $<TARGET_PROPERTY:qplcore_px,INTERFACE_INCLUDE_DIRECTORIES>
-        PUBLIC $<TARGET_PROPERTY:qplcore_avx512,INTERFACE_INCLUDE_DIRECTORIES>
-        PUBLIC $<TARGET_PROPERTY:isal,INTERFACE_INCLUDE_DIRECTORIES>
         PUBLIC $<TARGET_PROPERTY:core_iaa,INTERFACE_INCLUDE_DIRECTORIES>)
 
 target_compile_definitions(middle_layer_lib PUBLIC -DQPL_LIB)

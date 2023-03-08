@@ -15,7 +15,6 @@ add_library(qpl STATIC ${QPL_C_API_SRC}
         $<TARGET_OBJECTS:isal>
         $<TARGET_OBJECTS:isal_asm>
         $<TARGET_OBJECTS:qplcore_px>
-        $<TARGET_OBJECTS:qplcore_avx512>
         $<TARGET_OBJECTS:core_iaa>
         $<TARGET_OBJECTS:middle_layer_lib>)
 
